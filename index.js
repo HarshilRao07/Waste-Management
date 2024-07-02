@@ -8,8 +8,14 @@ app.use('/public', express.static('public'));
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 
+//Home page
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
+});
+
+//Login Page
+app.get('/login', (req, res) => {
+    res.render('login', { title: 'Login' });
 });
 
 app.listen(port, () => {

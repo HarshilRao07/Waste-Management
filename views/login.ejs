@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <!-- Stylesheet Link -->
+    <link rel="stylesheet" href="/public/css/header.css">
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('header') %>
+
+        <!-- sellers or buyers login section  -->
+         <div class="seller-buyer-login-title">
+            <h1> I am: </h1>
+         </div>
+        <div class="seller-buyer-login-flex">
+            <div class="seller-section">
+                <div class="seller-image">
+                    <img src="/public/images/estate-agent.png" alt="sellers" style="height: auto; width: 200px;">
+                </div>
+                <div class="seller-button">
+                    <a href="/sellerLogin" class="seller-login-button"> seller</a>
+                </div>
+            </div>
+            <div class="buyer-section">
+                <div class="buyer-image">
+                    <img src="/public/images/food-stall.png" alt="buyer" style="height: auto; width: 200px;">
+                </div>
+                <div class="buyer-button">
+                    <a href="/buyerLogin" class="buyer-login-button"> buyer</a>
+                </div>
+            </div>
+        </div>
+        <!-- Footer  -->
+        <%- include('footer') %>
+</body>
+
+</html>
