@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <!-- Stylesheet Link -->
+  <link rel="stylesheet" href="/public/css/header.css">
+  <link rel="stylesheet" href="/public/css/home.css">
+  <link rel="stylesheet" href="/public/css/footer.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <%- include('header') %>
+
+  <!-- Main content start -->
+   <div class="home-title">
+    <h1> Welcome to our Project </h1>
+   </div>
+
+    <div class="main-content-video-flex">
+      <div class="main-content">
+        WM offers a number of different recycling containers and garbage containers to ensure you’re getting the container that fits your needs. We serve Burlington, Hamilton, London, Waterloo and surrounding areas.
+      </div>
+      <div class="main-video">
+        <iframe width="550" height="315" src="https://www.youtube.com/embed/K6ppCC3lboU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+  <!-- Footer  -->
+  <%- include('footer') %>
+</body>
+
+</html>
