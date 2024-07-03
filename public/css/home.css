@@ -1,0 +1,30 @@
+/* reset.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+    font-size: 2em;
+}
+
+.home-title{
+    padding: 50px 0px;
+    text-align: center;
+}
+
+.main-content-video-flex{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0px 50px;
+    padding-bottom:50px;
+}
+
+.main-content{
+    width: 50%;
+    padding-right: 30px;
+}
