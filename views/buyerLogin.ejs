@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Stylesheet Links -->
+    <link rel="stylesheet" href="/public/css/header.css">
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/css/buyerLogin.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('header') %>
+    
+    <!-- buyer Login Page start -->
+    <div class="buyer-main-title">
+        <h1> Buyer Login Page </h1>
+    </div>
+    
+    <div class="buyer-login-content">
+        <div class="login-form">
+            <form action="/buyerLogin" method="post">
+                <div class="buyer-image">
+                    <img src="/public/images/food-stall.png" alt="buyer" style="height: auto; width: 200px;">
+                </div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/register">Create one</a></p>
+        </div>
+    </div>
+    <!-- Footer  -->
+    <%- include('footer') %>
+
+</body>
+
+</html>
