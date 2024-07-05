@@ -1,0 +1,68 @@
+/* sellerLogin.css */
+
+.seller-main-title {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.seller-login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 180px);
+}
+
+.seller-image {
+   text-align: center;
+}
+
+.login-form {
+    max-width: 400px;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 94%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3cb371;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #2e8b57;
+}
+
+.login-form p {
+    text-align: center;
+}
+
+.login-form a {
+    color: #3cb371;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}

@@ -18,6 +18,16 @@ app.get('/login', (req, res) => {
     res.render('login', { title: 'Login' });
 });
 
+//Seller Login Page
+app.get('/sellerLogin', (req, res) => {
+    res.render('sellerLogin', { title: 'Seller Login' });
+});
+
+//Buyer Login Page
+app.get('/buyerLogin', (req, res) => {
+    res.render('buyerLogin', { title: 'Buyer Login' });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });

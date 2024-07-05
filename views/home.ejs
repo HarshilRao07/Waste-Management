@@ -11,28 +11,55 @@
   <link rel="stylesheet" href="/public/css/header.css">
   <link rel="stylesheet" href="/public/css/home.css">
   <link rel="stylesheet" href="/public/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 
 <body>
   <!-- Header -->
   <%- include('header') %>
 
-  <!-- Main content start -->
-   <div class="home-title">
-    <h1> Welcome to our Project </h1>
-   </div>
+    <!-- Main content start -->
+    <div class="home-title">
+      <h1> Welcome to our Project </h1>
+    </div>
 
     <div class="main-content-video-flex">
       <div class="main-content">
-        WM offers a number of different recycling containers and garbage containers to ensure you’re getting the container that fits your needs. We serve Burlington, Hamilton, London, Waterloo and surrounding areas.
+        WM offers a number of different recycling containers and garbage containers to ensure you’re getting the
+        container that fits your needs. We serve Burlington, Hamilton, London, Waterloo and surrounding areas.
       </div>
       <div class="main-video">
-        <iframe width="550" height="315" src="https://www.youtube.com/embed/K6ppCC3lboU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="550" height="315" src="https://www.youtube.com/embed/K6ppCC3lboU" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
       </div>
     </div>
 
-  <!-- Footer  -->
-  <%- include('footer') %>
+    <!-- About Section -->
+    <div class="about-section" id="about">
+      <div class="contact-info">
+        <h2>Contact Us</h2>
+        <p><i class="fas fa-phone-alt"></i> +1-234-567-890</p>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Main St, Anytown, CA</p>
+        <p><i class="fas fa-envelope"></i> wastemanagement@hotmail.com</p>
+      </div>
+      <div class="social-media">
+        <h2>Follow Us</h2>
+        <a href="https://www.instagram.com/yourhandle" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/yourhandle" target="_blank">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://www.twitter.com/yourhandle" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer  -->
+    <%- include('footer') %>
 </body>
 
 </html>
