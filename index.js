@@ -76,11 +76,11 @@ app.post('/register', async (req, res) => {
 
         if (role === 'seller') {
             await db.collection('sellers').insertOne({ username, email, password });
+            res.redirect('/sellerLogin');
         } else {
             await db.collection('buyers').insertOne({ username, email, password });
+            res.redirect('/buyerLogin');
         }
-
-        res.redirect('/login');
     } catch (err) {
         console.error(err);
         res.status(500).send("Error registering user");
