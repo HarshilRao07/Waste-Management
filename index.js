@@ -28,6 +28,11 @@ app.get('/buyerLogin', (req, res) => {
     res.render('buyerLogin', { title: 'Buyer Login' });
 });
 
+// Register Page
+app.get('/register', (req, res) => {
+    res.render('register', { title: 'Register' });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
