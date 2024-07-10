@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Stylesheet Links -->
+    <link rel="stylesheet" href="/public/css/header.css">
+    <link rel="stylesheet" href="/public/css/register.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('header') %>
+
+    <!-- Registration Page start -->
+    <div class="register-main-title">
+        <h1> Create an Account </h1>
+    </div>
+    
+    <div class="register-content">
+        <div class="register-form">
+            <form action="/register" method="post">
+                <div class="register-image">
+                    <img src="/public/images/add-user.png" alt="add user" style="height: auto; width: 200px;">
+                </div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <label for="role">I am a:</label>
+                <select id="role" name="role" required>
+                    <option value="buyer">Buyer</option>
+                    <option value="seller">Seller</option>
+                </select>
+                
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <!-- Footer  -->
+    <%- include('footer') %>
+
+</body>
+
+</html>
