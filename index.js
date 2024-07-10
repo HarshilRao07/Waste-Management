@@ -1,6 +1,27 @@
 const express = require('express');
+const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3000;
+
+// MongoDB connection URI
+const dbURI = 'mongodb+srv://harshilrao:harshilRAO2015@cluster0.pyi8dbt.mongodb.net/sellerUsers?retryWrites=true&w=majority&appName=Cluster0';
+
+// Create a MongoClient
+const client = new MongoClient(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function main() {
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        console.log("Connected to MongoDB");
+
+        // Make the client available to the rest of the app
+        app.locals.db = client.db('sellerUsers');
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 
 // Serve static files from the "public" directory
 app.use('/public', express.static('public'));
