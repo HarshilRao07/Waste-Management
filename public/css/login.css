@@ -1,33 +1,105 @@
-.seller-buyer-login-flex{
+/* General styling for login page */
+.login-main-title {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.login-selection {
     display: flex;
     justify-content: space-evenly;
-    text-align: center;
+    gap: 50px;
+    margin: 30px 0;
 }
-.seller-login-button, .buyer-login-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+
+.login-option {
     text-align: center;
-    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.login-option:hover {
+    transform: scale(1.05);
+}
+
+.login-option-image {
+    width: 200px;
+    height: auto;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 94%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    width: 300px;
 }
 
-.seller-login-button:hover, .buyer-login-button:hover {
-    background-color: #45a049;
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3cb371;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.seller-buyer-login-title{
+.login-form button:hover {
+    background-color: #2e8b57;
+}
+
+.login-form p {
     text-align: center;
 }
 
-.seller-image{
-    padding-bottom: 20px;
+.login-form a {
+    color: #3cb371;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.buyer-image{
-    padding-bottom: 20px;
+.login-form a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-header {
+    text-align: center;
+}
+
+.login-content {
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+}
+
+.login-content.active {
+    display: flex; /* Flex display when active */
+}
+
+.login-form {
+    max-width: 400px;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-image{
+    text-align: center;
+}
+#login-title{
+    text-align: center;
 }

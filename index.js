@@ -1,6 +1,10 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const flash = require('connect-flash');
 const app = express();
 const port = 3000;
 
@@ -12,12 +16,13 @@ const client = new MongoClient(dbURI, { useNewUrlParser: true, useUnifiedTopolog
 
 async function main() {
     try {
-        // Connect to the MongoDB cluster
         await client.connect();
         console.log("Connected to MongoDB");
 
-        // Make the client available to the rest of the app
         app.locals.db = client.db('Users');
+
+        // Configure Passport
+        require('./passportConfig')(app, app.locals.db);
     } catch (err) {
         console.error(err);
     }
@@ -25,65 +30,76 @@ async function main() {
 
 main().catch(console.error);
 
-// Middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Serve static files from the "public" directory
+app.use(session({
+    secret: 'waste management',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/public', express.static('public'));
-
-// Set EJS as the template engine
 app.set('view engine', 'ejs');
 
-// Import routes
 const buyerRoutes = require('./routes/buyerRoutes');
 const sellerRoutes = require('./routes/sellerRoutes');
 
-// Use routes
 app.use('/buyer', buyerRoutes);
 app.use('/seller', sellerRoutes);
 
-//Home page
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
 });
 
-//Login Page
 app.get('/login', (req, res) => {
-    res.render('login', { title: 'Login' });
+    const userType = req.query.userType || 'buyer';
+    res.render('login', { title: `${userType.charAt(0).toUpperCase() + userType.slice(1)} Login`, userType, error: req.flash('error') });
 });
 
-//Seller Login Page
-app.get('/sellerLogin', (req, res) => {
-    res.render('sellerLogin', { title: 'Seller Login' });
-});
-
-//Buyer Login Page
-app.get('/buyerLogin', (req, res) => {
-    res.render('buyerLogin', { title: 'Buyer Login' });
-});
-
-// Register Page
 app.get('/register', (req, res) => {
     res.render('register', { title: 'Register' });
 });
 
-// Handle registration form submission
 app.post('/register', async (req, res) => {
     const { username, email, password, role } = req.body;
 
     try {
         const db = req.app.locals.db;
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         if (role === 'seller') {
-            await db.collection('sellers').insertOne({ username, email, password });
-            res.redirect('/sellerLogin');
+            await db.collection('sellers').insertOne({ username, email, password: hashedPassword, role: 'seller' });
+            res.redirect('/login?userType=seller');
         } else {
-            await db.collection('buyers').insertOne({ username, email, password });
-            res.redirect('/buyerLogin');
+            await db.collection('buyers').insertOne({ username, email, password: hashedPassword, role: 'buyer' });
+            res.redirect('/login?userType=buyer');
         }
     } catch (err) {
         console.error(err);
         res.status(500).send("Error registering user");
+    }
+});
+
+app.post('/login', (req, res, next) => {
+    const { role } = req.body;
+
+    if (role === 'seller') {
+        passport.authenticate('seller-local', {
+            successRedirect: '/seller/dashboard',
+            failureRedirect: '/login?userType=seller',
+            failureFlash: true
+        })(req, res, next);
+    } else {
+        passport.authenticate('buyer-local', {
+            successRedirect: '/buyer/dashboard',
+            failureRedirect: '/login?userType=buyer',
+            failureFlash: true
+        })(req, res, next);
     }
 });
 
