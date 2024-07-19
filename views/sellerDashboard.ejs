@@ -4,9 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
 </head>
 <body>
-    <h1>Welcome to the Seller Dashboard, <%= user.username %></h1>
-    <!-- Add your seller-specific dashboard content here -->
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <!-- Header Title  -->
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Seller Navigation  -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="user-welcome">
+            <h1>Welcome to the Seller Dashboard, <%= user.username %></h1>
+        </div>
+    </div>
+
+    <!-- Footer  -->
+    <%- include('footer') %>
 </body>
 </html>
