@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    const userType = req.query.userType || 'buyer';
+    const userType = req.query.userType || '';
     res.render('login', { title: `${userType.charAt(0).toUpperCase() + userType.slice(1)} Login`, userType, error: req.flash('error') });
 });
 
@@ -102,6 +102,16 @@ app.post('/login', (req, res, next) => {
         })(req, res, next);
     }
 });
+
+app.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
