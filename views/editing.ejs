@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .table-image {
+            width: 100px;
+            height: auto;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .edit-btn {
+            background-color: #f39c12;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Seller Navigation -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Editing</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Location</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% uploads.forEach(upload => { %>
+                    <tr>
+                        <td><img class="table-image" src="/public/uploads/<%= upload.image.filename %>" alt="Image"></td>
+                        <td><%= upload.location %></td>
+                        <td><%= upload.quantity %></td>
+                        <td><%= upload.category %></td>
+                        <td>
+                            <button class="edit-btn" onclick="window.location.href='/seller/edit/<%= upload._id %>'">Edit</button>
+                            <button class="delete-btn" onclick="window.location.href='/seller/delete/<%= upload._id %>'">Delete</button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+</body>
+</html>

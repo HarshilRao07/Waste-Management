@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Seller Navigation -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Edit Upload</h1>
+        <form action="/seller/edit/<%= upload._id %>" method="POST" enctype="multipart/form-data">
+            <label for="image">Image Upload:</label>
+            <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" value="<%= upload.location %>" required><br><br>
+
+            <label for="contact">Contacting Details:</label>
+            <input type="text" id="contact" name="contact" value="<%= upload.contact %>" required><br><br>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="<%= upload.quantity %>" required><br><br>
+
+            <label for="details">Product Details:</label><br>
+            <textarea id="details" name="details" rows="4" cols="50" required><%= upload.details %></textarea><br><br>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="steel" <%= upload.category === 'steel' ? 'selected' : '' %>>Steel</option>
+                <option value="glass" <%= upload.category === 'glass' ? 'selected' : '' %>>Glass</option>
+                <option value="paper" <%= upload.category === 'paper' ? 'selected' : '' %>>Paper</option>
+                <option value="plastic" <%= upload.category === 'plastic' ? 'selected' : '' %>>Plastic</option>
+            </select><br><br>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+</body>
+</html>
