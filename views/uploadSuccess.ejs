@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <!-- Header Title  -->
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Seller Navigation  -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Upload Successful!</h1>
+        <p>Your photo has been uploaded successfully.</p>
+        <div class="button-container">
+            <a href="/seller/dashboard" class="btn">Go to Dashboard</a>
+            <a href="/seller/editing" class="btn">Go to Editing</a>
+        </div>
+    </div>
+
+    <!-- Footer  -->
+    <%- include('footer') %>
+</body>
+</html>
+
+<style>
+    .button-container {
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #27ae60;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .btn:hover {
+        background-color: #2ecc71;
+    }
+    .main-content{
+        text-align: center;
+    }
+</style>
