@@ -84,11 +84,13 @@ router.post('/upload', upload, async (req, res) => {
             sellerId: req.user._id // Optional: Link upload to the seller
         });
 
-        res.send('Upload successful!');
+        // Render the success page
+        res.render('uploadSuccess', { title: 'Upload Successful', user: req.user });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error uploading waste');
     }
 });
+
 
 module.exports = router;
