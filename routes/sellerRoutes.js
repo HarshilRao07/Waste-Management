@@ -197,4 +197,13 @@ router.get('/delete/:id', async (req, res) => {
     }
 });
 
+// GET route for rendering the awards page
+router.get('/awards', (req, res) => {
+    if (!req.isAuthenticated() || req.user.role !== 'seller') {
+        return res.redirect('/login?userType=seller');
+    }
+    res.render('awards', { title: 'Awards', user: req.user });
+});
+
+
 module.exports = router;

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards - Redeem Your Points</title>
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <style>
+        .awards-container {
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f0f0 25%, #e0e0e0 75%);
+        }
+        .points-display {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 items per row */
+            gap: 30px;
+            justify-items: center;
+        }
+        @media (max-width: 1200px) {
+            .logo-grid {
+                grid-template-columns: repeat(5, 1fr); /* 5 items per row for smaller screens */
+            }
+        }
+        @media (max-width: 900px) {
+            .logo-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 items per row for medium screens */
+            }
+        }
+        @media (max-width: 600px) {
+            .logo-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 items per row for small screens */
+            }
+        }
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .logo-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        .logo-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .redeem-btn {
+            background-color: #2980b9;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .redeem-btn:hover {
+            background-color: #1c598f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Seller Navigation -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content awards-container">
+        <h1>Awards - Redeem Your Points</h1>
+        <div class="points-display">
+            You have <strong><%= user.points %></strong> points to redeem.
+        </div>
+        <div class="logo-grid">
+            <% const platforms = [
+                { name: 'Amazon', logo: 'amazon-logo.png' },
+                { name: 'Uber Eats', logo: 'uber-eats-logo.png' },
+                { name: 'Walmart', logo: 'walmart-logo.png' },
+                { name: 'Starbucks', logo: 'starbucks-logo.png' },
+                { name: 'Apple', logo: 'apple-logo.png' },
+                { name: 'Nike', logo: 'nike-logo.png' },
+                { name: 'Adidas', logo: 'adidas-logo.png' },
+                { name: 'Best Buy', logo: 'best-buy-logo.png' },
+                { name: 'Spotify', logo: 'spotify-logo.png' },
+                { name: 'Netflix', logo: 'netflix-logo.png' },
+                { name: 'McDonald\'s', logo: 'mcdonalds-logo.png' },
+                { name: 'Burger King', logo: 'burger-king-logo.png' }
+            ]; %>
+
+            <% platforms.forEach(platform => { %>
+                <div class="logo-item">
+                    <img src="/public/logos/<%= platform.logo %>" alt="<%= platform.name %> Logo">
+                    <p><%= platform.name %></p>
+                    <button class="redeem-btn" onclick="redeemPoints('<%= platform.name %>')">Redeem Points</button>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+
+    <script>
+        function redeemPoints(platform) {
+            alert(`Redeem points for ${platform}`);
+        }
+    </script>
+</body>
+</html>
