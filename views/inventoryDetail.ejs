@@ -1,9 +1,11 @@
+<!-- inventoryDetail.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/inventoryDetail.css">
     <link rel="stylesheet" href="/public/css/buyerDashboard.css">
     <link rel="stylesheet" href="/public/css/footer.css">
 </head>
@@ -11,14 +13,14 @@
     <!-- Header -->
     <div class="header-main">
         <header>
-            <!-- Header Title  -->
+            <!-- Header Title -->
             <div class="header-title">
                 <h1>Billionaire Bytes Innovations</h1>
             </div>
         </header>
     </div>
 
-    <!-- buyer Navigation  -->
+    <!-- Buyer Navigation -->
     <div class="header-nav">
         <nav>
             <ul>
@@ -32,13 +34,17 @@
         </nav>
     </div>
 
-    <div class="main-content">
-        <div class="user-welcome">
-            <h1>Welcome to the Buyer Dashboard, <%= user.username %></h1>
-        </div>
+    <!-- Item Details -->
+    <div class="item-details-container">
+        <img src="/public/uploads/<%= item.image.filename %>" alt="<%= item.image.originalname %>">
+        <h2><%= item.details %></h2>
+        <p><strong>Location:</strong> <%= item.location %></p>
+        <p><strong>Quantity:</strong> <%= item.quantity %></p>
+        <p><strong>Category:</strong> <%= item.category %></p>
+        <p><strong>Contact:</strong> <%= item.contact %></p>
     </div>
 
-    <!-- Footer  -->
+    <!-- Footer -->
     <%- include('footer') %>
 </body>
 </html>

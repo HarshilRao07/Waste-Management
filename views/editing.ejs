@@ -62,6 +62,8 @@
                 <li><a href="/seller/upload">Upload</a></li>
                 <li><a href="/seller/editing">Editing</a></li>
                 <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/seller/request">Requests</a></li>
+                <li><a href="/seller/notification">notifications</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
@@ -73,7 +75,7 @@
             <thead>
                 <tr>
                     <th>Image</th>
-                    <th>Location</th>
+                    <th>City</th>
                     <th>Quantity</th>
                     <th>Category</th>
                     <th>Actions</th>
@@ -83,7 +85,7 @@
                 <% uploads.forEach(upload => { %>
                     <tr>
                         <td><img class="table-image" src="/public/uploads/<%= upload.image.filename %>" alt="Image"></td>
-                        <td><%= upload.location %></td>
+                        <td><%= upload.city %></td>
                         <td><%= upload.quantity %></td>
                         <td><%= upload.category %></td>
                         <td>

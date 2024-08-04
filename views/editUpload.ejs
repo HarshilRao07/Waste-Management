@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+    <link rel="stylesheet" href="/public/css/editUpload.css">
     <link rel="stylesheet" href="/public/css/footer.css">
 </head>
 <body>
@@ -25,6 +26,8 @@
                 <li><a href="/seller/upload">Upload</a></li>
                 <li><a href="/seller/editing">Editing</a></li>
                 <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/seller/request">Requests</a></li>
+                <li><a href="/seller/notification">Notifications</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
@@ -32,35 +35,65 @@
 
     <div class="main-content">
         <h1>Edit Upload</h1>
-        <form action="/seller/edit/<%= upload._id %>" method="POST" enctype="multipart/form-data">
-            <label for="image">Image Upload:</label>
-            <input type="file" id="image" name="image" accept="image/*"><br><br>
+        <div class="form-container">
+            <div class="form-fields">
+                <form action="/seller/edit/<%= upload._id %>" method="POST" enctype="multipart/form-data">
+                    <label for="image">Image Upload:</label>
+                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)"><br><br>
+                    
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" value="<%= upload.phone %>" required><br><br>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" value="<%= upload.location %>" required><br><br>
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" name="street" value="<%= upload.street %>" required><br><br>
 
-            <label for="contact">Contacting Details:</label>
-            <input type="text" id="contact" name="contact" value="<%= upload.contact %>" required><br><br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" value="<%= upload.city %>" required><br><br>
 
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" name="quantity" value="<%= upload.quantity %>" required><br><br>
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" value="<%= upload.state %>" required><br><br>
 
-            <label for="details">Product Details:</label><br>
-            <textarea id="details" name="details" rows="4" cols="50" required><%= upload.details %></textarea><br><br>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="<%= upload.quantity %>" required><br><br>
 
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="steel" <%= upload.category === 'steel' ? 'selected' : '' %>>Steel</option>
-                <option value="glass" <%= upload.category === 'glass' ? 'selected' : '' %>>Glass</option>
-                <option value="paper" <%= upload.category === 'paper' ? 'selected' : '' %>>Paper</option>
-                <option value="plastic" <%= upload.category === 'plastic' ? 'selected' : '' %>>Plastic</option>
-            </select><br><br>
+                    <label for="details">Product Details:</label><br>
+                    <textarea id="details" name="details" rows="4" cols="50" required><%= upload.details %></textarea><br><br>
 
-            <button type="submit">Update</button>
-        </form>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="steel" <%= upload.category === 'steel' ? 'selected' : '' %>>Steel</option>
+                        <option value="glass" <%= upload.category === 'glass' ? 'selected' : '' %>>Glass</option>
+                        <option value="paper" <%= upload.category === 'paper' ? 'selected' : '' %>>Paper</option>
+                        <option value="plastic" <%= upload.category === 'plastic' ? 'selected' : '' %>>Plastic</option>
+                    </select><br><br>
+
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+            <div class="image-container">
+                <img id="imagePreview" class="image-preview" src="/public/uploads/<%= upload.image.filename %>" alt="Image Preview">
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
     <%- include('footer') %>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 </html>
