@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/buyerRequest.css">
     <link rel="stylesheet" href="/public/css/buyerDashboard.css">
     <link rel="stylesheet" href="/public/css/footer.css">
 </head>
@@ -11,14 +12,13 @@
     <!-- Header -->
     <div class="header-main">
         <header>
-            <!-- Header Title  -->
             <div class="header-title">
                 <h1>Billionaire Bytes Innovations</h1>
             </div>
         </header>
     </div>
 
-    <!-- buyer Navigation  -->
+    <!-- Buyer Navigation -->
     <div class="header-nav">
         <nav>
             <ul>
@@ -32,13 +32,20 @@
         </nav>
     </div>
 
-    <div class="main-content">
-        <div class="user-welcome">
-            <h1>Welcome to the Buyer Dashboard, <%= user.username %></h1>
-        </div>
+    <!-- Buyer Requests -->
+    <div class="request-list">
+        <h2>Requests</h2>
+        <% requests.forEach(request => { %>
+            <div class="request-item">
+                <h3>Item: <%= request.item.details %></h3>
+                <p>Requested Quantity: <%= request.quantity %></p>
+                <p>Status: <%= request.status %></p>
+                <p>Seller: <%= request.sellerName %></p>
+            </div>
+        <% }) %>
     </div>
 
-    <!-- Footer  -->
+    <!-- Footer -->
     <%- include('footer') %>
 </body>
 </html>

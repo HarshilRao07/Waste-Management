@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/buyerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <style>
+        .editing-container {
+            padding: 20px;
+        }
+
+        .request-list {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .request-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-item img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .request-details {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .request-actions a,
+        .request-actions form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .request-actions a:hover,
+        .request-actions form button:hover {
+            background-color: #45a049;
+        }
+
+        .request-actions .cancel-button {
+            background-color: #f44336;
+        }
+
+        .request-actions .cancel-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Buyer Navigation -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/buyer/dashboard">Dashboard</a></li>
+                <li><a href="/buyer/inventory">Inventory</a></li>
+                <li><a href="/buyer/editing">Edit</a></li>
+                <li><a href="/buyer/request">Requests</a></li>
+                <li><a href="/buyer/pickUp">Pick-up</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Editing Container -->
+    <div class="editing-container">
+        <h2>Edit Requests</h2>
+        <div class="request-list">
+            <% requests.forEach(request => { %>
+                <div class="request-item">
+                    <img src="/public/uploads/<%= request.item.image.filename %>" alt="<%= request.item.image.originalname %>">
+                    <div class="request-details">
+                        <p><strong>Details:</strong> <%= request.item.details %></p>
+                        <p><strong>Requested Quantity:</strong> <%= request.quantity %></p>
+                        <p><strong>Status:</strong> <%= request.status %></p>
+                    </div>
+                    <div class="request-actions">
+                        <a href="/buyer/editRequest/<%= request._id %>">Edit</a>
+                        <form action="/buyer/cancelRequest" method="POST">
+                            <input type="hidden" name="requestId" value="<%= request._id %>">
+                            <button type="submit" class="cancel-button">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/sellerRequest.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <link rel="stylesheet" href="/public/css/sellerDashboard.css">
+</head>
+<body>
+    <!-- Header and Navigation -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+    
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/seller/dashboard">Dashboard</a></li>
+                <li><a href="/seller/upload">Upload</a></li>
+                <li><a href="/seller/editing">Editing</a></li>
+                <li><a href="/seller/awards">Awards</a></li>
+                <li><a href="/seller/request">Requests</a></li>
+                <li><a href="/seller/notification">Notifications</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Seller Requests -->
+    <div class="requests">
+        <h2>All Requests</h2>
+        <% if (requests.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Buyer Name</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.buyerId %></td>
+                            <td><%= request.itemId %></td>
+                            <td><%= request.quantity %></td>
+                            <td><%= request.status %></td>
+                            <td>
+                                <% if (request.status === 'Pending') { %>
+                                    <form action="/seller/request/<%= request._id %>" method="POST">
+                                        <button class="btn-1" type="submit" name="action" value="accept">Accept</button>
+                                        <button class="btn-2" type="submit" name="action" value="reject">Reject</button>
+                                    </form>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No requests as of now</p>
+        <% } %>
+
+        <h2>Accepted Requests</h2>
+        <% if (acceptedRequests.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Buyer Name</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% acceptedRequests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.buyerId %></td>
+                            <td><%= request.itemId %></td>
+                            <td><%= request.quantity %></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No accepted requests as of now</p>
+        <% } %>
+
+        <h2>Rejected Requests</h2>
+        <% if (rejectedRequests.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Buyer Name</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% rejectedRequests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.buyerId %></td>
+                            <td><%= request.itemId %></td>
+                            <td><%= request.quantity %></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No rejected requests as of now</p>
+        <% } %>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+</body>
+</html>

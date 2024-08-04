@@ -1,0 +1,44 @@
+.requests {
+    padding: 20px;
+}
+
+.requests h2 {
+    text-align: center;
+}
+
+.request-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.request-item p {
+    margin: 5px 0;
+}
+
+.request-item form {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.request-item button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.request-item button:hover {
+    background-color: #45a049;
+}
+
+.btn-1{
+    background-color: #4CAF50;
+}
+.btn-2{
+    background-color: red !important;
+}

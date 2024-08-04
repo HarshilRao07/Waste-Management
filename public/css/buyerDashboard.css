@@ -1,18 +1,16 @@
-/* buyerDashboard.css */
-
 body {
     font-family: Arial, sans-serif;
 }
 
 .header-main {
-    background-color: #3498db;
+    background-color: #2ecc71;
     color: white;
     padding: 20px 0;
     text-align: center;
 }
 
 .header-nav {
-    background-color: #2980b9;
+    background-color: #27ae60;
     padding: 10px 0;
 }
 
@@ -36,7 +34,7 @@ body {
 }
 
 .header-nav nav ul li a:hover {
-    background-color: #3498db;
+    background-color: #2ecc71;
 }
 
 .main-content {

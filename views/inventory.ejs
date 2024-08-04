@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/inventory.css">
+    <link rel="stylesheet" href="/public/css/buyerDashboard.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <style>
+        /* Existing styles here */
+
+        /* Styles for the inventory grid */
+        .inventory-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .inventory-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            background-color: #f9f9f9;
+        }
+
+        .inventory-item img {
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .item-details h3 {
+            margin: 10px 0;
+        }
+
+        .item-details p {
+            margin: 5px 0;
+        }
+
+        .inventory-item button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .inventory-item button:hover {
+            background-color: #45a049;
+        }
+
+        /* New styles for the request popup */
+        .request-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        .request-popup img {
+            width: 50px;
+            height: auto;
+        }
+
+        .request-popup table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .request-popup table, .request-popup th, .request-popup td {
+            border: 1px solid #ddd;
+        }
+
+        .request-popup th, .request-popup td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .request-popup button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .request-popup button:hover {
+            background-color: #45a049;
+        }
+
+        .request-popup .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #4CAF50;
+        }
+
+        /* Styles for the search bar */
+        .search-bar {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .search-bar input, .search-bar select, .search-bar button {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        .search-bar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-main">
+        <header>
+            <div class="header-title">
+                <h1>Billionaire Bytes Innovations</h1>
+            </div>
+        </header>
+    </div>
+
+    <!-- Buyer Navigation -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="/buyer/dashboard">Dashboard</a></li>
+                <li><a href="/buyer/inventory">Inventory</a></li>
+                <li><a href="/buyer/editing">Edit</a></li>
+                <li><a href="/buyer/request">Requests</a></li>
+                <li><a href="/buyer/pickUp">Pick-up</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form action="/buyer/inventory" method="GET">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="state" placeholder="State" required>
+            <select name="category" required>
+                <option value="">Select Category</option>
+                <option value="steel">Steel</option>
+                <option value="glass">Glass</option>
+                <option value="paper">Paper</option>
+                <option value="plastic">Plastic</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+
+    <!-- Inventory Grid -->
+    <div class="inventory-grid">
+        <% uploads.forEach(upload => { %>
+            <div class="inventory-item">
+                 <img src="/public/uploads/<%= upload.image.filename %>" alt="<%= upload.image.originalname %>">
+                <div class="item-details">
+                    <p>Username: <%= upload.sellerUsername %></p>
+                    <p>City: <%= upload.sellerCity %></p>
+                    <p>State: <%= upload.sellerState %></p>
+                    <p>Category: <%= upload.category %></p>
+                    <button onclick="openRequestPopup('<%= upload._id %>', '<%= upload.image.filename %>', '<%= upload.details %>', '<%= upload.quantity %>')">Request</button>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <!-- Request Popup -->
+    <div id="request-popup" class="request-popup">
+        <span class="close" onclick="closeRequestPopup()">&times;</span>
+        <form id="request-form" action="/buyer/request" method="POST">
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <td><img id="popup-image" src="" alt="Item Image"></td>
+                </tr>
+                <tr>
+                    <th>Details</th>
+                    <td id="popup-details"></td>
+                </tr>
+                <tr>
+                    <th>Available Quantity</th>
+                    <td id="popup-quantity"></td>
+                </tr>
+                <tr>
+                    <th>Requested Quantity</th>
+                    <td><input type="number" id="requested-quantity" name="quantity" min="1" required></td>
+                </tr>
+            </table>
+            <input type="hidden" id="popup-itemId" name="itemId">
+            <button type="submit">Send Request</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+
+    <script>
+        function openRequestPopup(itemId, imageFilename, details, quantity) {
+            document.getElementById('popup-image').src = '/public/uploads/' + imageFilename;
+            document.getElementById('popup-details').innerText = details;
+            document.getElementById('popup-quantity').innerText = quantity;
+            document.getElementById('popup-itemId').value = itemId;
+            document.getElementById('request-popup').style.display = 'block';
+        }
+
+        function closeRequestPopup() {
+            document.getElementById('request-popup').style.display = 'none';
+        }
+
+        // Hide all popups initially
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('request-popup').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

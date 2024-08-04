@@ -1,0 +1,65 @@
+/* CSS for the upload form layout */
+.form-container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px; /* Optional: Add some space at the top */
+}
+
+.form-left {
+    flex: 1;
+    margin-right: 20px; /* Space between image preview and form */
+}
+
+.form-right {
+    flex: 2;
+}
+
+/* Style for image preview */
+.image-preview {
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    max-height: 300px; /* Limit the height */
+    object-fit: cover; /* Ensure image fits within the container */
+    border: 1px solid #ccc; /* Optional: Add a border around the image */
+    border-radius: 8px; /* Optional: Round the corners of the border */
+    background-color: #f0f0f0; /* Optional: Background color for the preview area */
+    margin-bottom: 20px; /* Space below the image */
+}
+
+/* Optional: Style for form elements */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="tel"],
+form input[type="number"],
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form textarea {
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+form button {
+    background-color: #27ae60; /* Match with header and navigation */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #2ecc71; /* Lighter green on hover */
+}

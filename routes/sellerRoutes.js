@@ -61,15 +61,17 @@ router.post('/upload', upload, async (req, res) => {
         return res.redirect('/login?userType=seller');
     }
 
-    const { location, contact, quantity, details, category } = req.body;
+    const { phone, street, city, state, quantity, details, category } = req.body;
     const imageFile = req.file; // File upload details from multer
 
     try {
         const db = req.app.locals.db;
         // Save uploaded data to MongoDB
         await db.collection('uploads').insertOne({
-            location,
-            contact,
+            phone,
+            street,
+            city,
+            state,
             quantity: parseInt(quantity),
             details,
             category,
@@ -133,14 +135,16 @@ router.post('/edit/:id', upload, async (req, res) => {
         return res.redirect('/login?userType=seller');
     }
 
-    const { location, contact, quantity, details, category } = req.body;
+    const { phone, street, city, state, quantity, details, category } = req.body;
     const imageFile = req.file;
 
     try {
         const db = req.app.locals.db;
         const updateData = {
-            location,
-            contact,
+            phone,
+            street,
+            city,
+            state,
             quantity: parseInt(quantity),
             details,
             category,
@@ -205,5 +209,99 @@ router.get('/awards', (req, res) => {
     res.render('awards', { title: 'Awards', user: req.user });
 });
 
+// GET route for displaying the seller requests page
+router.get('/inventory', async (req, res) => {
+    if (!req.isAuthenticated() || req.user.role !== 'buyer') {
+        return res.redirect('/login?userType=buyer');
+    }
+
+    const { username, city, state, category } = req.query;
+    const filters = {};
+
+    if (username) filters['sellerInfo.username'] = username;
+    if (city) filters['sellerInfo.city'] = city;
+    if (state) filters['sellerInfo.state'] = state;
+    if (category) filters['category'] = category;
+
+    try {
+        const db = req.app.locals.db;
+        const uploads = await db.collection('uploads').aggregate([
+            {
+                $lookup: {
+                    from: 'sellers',
+                    localField: 'sellerId',
+                    foreignField: '_id',
+                    as: 'sellerInfo'
+                }
+            },
+            {
+                $unwind: '$sellerInfo'
+            },
+            {
+                $match: filters
+            }
+        ]).toArray();
+        res.render('inventory', { title: 'Inventory', user: req.user, uploads });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching inventory');
+    }
+});
+
+// GET route for displaying the seller requests page
+router.get('/request', async (req, res) => {
+    if (!req.isAuthenticated() || req.user.role !== 'seller') {
+        return res.redirect('/login?userType=seller');
+    }
+
+    try {
+        const db = req.app.locals.db;
+        const allRequests = await db.collection('requests').find({ sellerId: req.user._id }).toArray();
+        const acceptedRequests = allRequests.filter(request => request.status === 'Accepted');
+        const rejectedRequests = allRequests.filter(request => request.status === 'Rejected');
+        
+        res.render('sellerRequest', { 
+            title: 'Seller Requests', 
+            user: req.user, 
+            requests: allRequests,
+            acceptedRequests,
+            rejectedRequests 
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching requests');
+    }
+});
+
+
+
+// POST route for handling accept/reject actions on requests
+router.post('/request/:id', async (req, res) => {
+    if (!req.isAuthenticated() || req.user.role !== 'seller') {
+        return res.redirect('/login?userType=seller');
+    }
+
+    const requestId = req.params.id;
+    const action = req.body.action;
+
+    try {
+        const db = req.app.locals.db;
+        const request = await db.collection('requests').findOne({ _id: new ObjectId(requestId) });
+
+        if (!request) {
+            return res.status(404).send('Request not found');
+        }
+
+        // Update request status based on action
+        const status = action === 'accept' ? 'Accepted' : 'Rejected';
+        await db.collection('requests').updateOne({ _id: new ObjectId(requestId) }, { $set: { status } });
+
+        // Redirect to the requests page
+        res.redirect('/seller/request');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error updating request status');
+    }
+});
 
 module.exports = router;
